@@ -4,4 +4,8 @@ dns_domain_name: "dev.test.local"
 dc_ip: "10.2.30.10" 
 domain_admin_user: "domainadmin@dev.test.local"
 domain_admin_password: "password"
-#domain_ou_path: "OU=Windows,OU=Servers,DC=dev,DC=test,DC=local" # Commenting out for now 
+#domain_ou_path: "OU=Windows,OU=Servers,DC=dev,DC=test,DC=local" # Commenting out for now
+
+# RSAT Installation Control
+install_rsat_tools: false  # Default to false since RSAT isn't required for domain join and can cause issues
+rsat_install_method: "dism"  # Use DISM method for Windows 10/11 clients (ignored if install_rsat_tools is false)

@@ -31,14 +31,15 @@
     state: present
     include_management_tools: true
   when: 
-    - install_rsat_tools | default(true)
+    - install_rsat_tools | default(false)
     - rsat_install_method | default('auto') in ['feature', 'auto']
   ignore_errors: yes
 
-- name: Install RSAT AD Tools via DISM (Client)
-  win_shell: |
-    DISM /Online /Add-Capability /CapabilityName:Rsat.ActiveDirectory.DS-LDS.Tools~~~~0.0.1.0
+- name: Install all RSAT Tools via PowerShell (Client)
+  win_powershell:
+    script: |
+      Get-WindowsCapability -Online | Where-Object Name -Like 'RSAT*' | Add-WindowsCapability -Online
   when: 
-    - install_rsat_tools | default(true)
-    - rsat_install_method | default('auto') in ['dism', 'auto']
+    - install_rsat_tools | default(false)
+    - rsat_install_method | default('auto') in ['powershell', 'auto']
   ignore_errors: yes

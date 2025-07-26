@@ -35,10 +35,10 @@
     - rsat_install_method | default('auto') in ['feature', 'auto']
   ignore_errors: yes
 
-- name: Install all RSAT Tools via PowerShell (Client)
+- name: Install RSAT Active Directory Tools via PowerShell (Client)
   win_powershell:
     script: |
-      Get-WindowsCapability -Online | Where-Object Name -Like 'RSAT*' | Add-WindowsCapability -Online
+      Get-WindowsCapability -Online | Where-Object Name -Like 'Rsat.ActiveDirectory.DS-LDS.Tools*' | Add-WindowsCapability -Online
   when: 
     - install_rsat_tools | default(false)
     - rsat_install_method | default('auto') in ['powershell', 'auto']
